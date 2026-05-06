@@ -1,5 +1,5 @@
 {
-  "name": "subframe-vite-starter-kit",
+  "name": "bookr",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,11 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@subframe/core": "^1.147.0",
+    "@subframe/core": "^1.154.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/chrome": "^0.1.40",
     "@types/node": "^20.10.4",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
