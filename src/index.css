@@ -2,19 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  font-family: Inter;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
+html,
+body,
 #root {
-  flex-grow: 1;
+  font-family: Inter;
+  width: 384px;
+  height: 560px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
