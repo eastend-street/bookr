@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/ui/Button";
 import { TextField } from "@/ui/TextField";
 import {
@@ -8,58 +8,35 @@ import {
   FeatherFolder,
   FeatherChevronLeft,
 } from "@subframe/core";
-import { useBookmarks } from "@/hooks/useBookmarks";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { getFaviconUrl, getDomain } from "@/lib/utils";
-import { chromeApi } from "@/lib/chromeApi";
 import type { BookmarkItem } from "@/hooks/useBookmarks";
 
-interface BreadcrumbProps {
-  stack: BookmarkItem[];
+export interface AppProps {
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
+  displayedItems: BookmarkItem[];
+  folderStack: BookmarkItem[];
+  isInFolder: boolean;
+  onNavigateBack: () => void;
   onNavigateTo: (index: number) => void;
+  onNavigateInto: (folder: BookmarkItem) => void;
+  onOpenBookmark: (url: string) => void;
+  onAddCurrentPage: () => void;
 }
 
-function Breadcrumb({ stack, onNavigateTo }: BreadcrumbProps) {
-  const segments =
-    stack.length > 2
-      ? [stack[0], null, stack[stack.length - 1]]
-      : stack;
-
-  return (
-    <div className="flex min-w-0 items-center gap-1 overflow-hidden">
-      {segments.map((item, i) => (
-        <React.Fragment key={i}>
-          {i > 0 && (
-            <span className="text-caption font-caption text-neutral-300 flex-none">/</span>
-          )}
-          {item === null ? (
-            <span className="text-caption font-caption text-neutral-400 flex-none">…</span>
-          ) : (
-            <button
-              className="min-w-0 max-w-[100px] truncate rounded px-1 py-0.5 text-left text-caption font-caption text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 last:text-caption-bold last:font-caption-bold last:text-neutral-700"
-              onClick={() => onNavigateTo(stack.indexOf(item))}
-            >
-              {item.title}
-            </button>
-          )}
-        </React.Fragment>
-      ))}
-    </div>
-  );
-}
-
-export default function App() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const { displayedItems, folderStack, navigateInto, navigateBack, navigateTo, addCurrentPage } =
-    useBookmarks(searchQuery);
-
-  const isInFolder = folderStack.length > 0 && !searchQuery;
-  const currentFolder = folderStack[folderStack.length - 1];
-
-  const handleNavigateInto = (folder: Parameters<typeof navigateInto>[0]) => {
-    setSearchQuery("");
-    navigateInto(folder);
-  };
-
+export default function App({
+  searchQuery,
+  onSearchChange,
+  displayedItems,
+  folderStack,
+  isInFolder,
+  onNavigateBack,
+  onNavigateTo,
+  onNavigateInto,
+  onOpenBookmark,
+  onAddCurrentPage,
+}: AppProps) {
   return (
     <div className="flex h-[560px] w-[384px] flex-col items-start border-r border-solid border-neutral-200 bg-default-background relative">
       <div className="flex w-full flex-col items-start gap-3 border-b border-solid border-neutral-200 px-4 pt-4 pb-3">
@@ -82,13 +59,13 @@ export default function App() {
             autoFocus
             placeholder="Search your bookmarks"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => onSearchChange(e.target.value)}
           />
         </TextField>
         <Button
           className="h-9 w-full flex-none bg-neutral-900 hover:bg-neutral-800"
           icon={<FeatherBookmarkPlus />}
-          onClick={addCurrentPage}
+          onClick={onAddCurrentPage}
         >
           Add current page
         </Button>
@@ -98,13 +75,13 @@ export default function App() {
         <div className="flex w-full items-center gap-1 border-b border-solid border-neutral-200 px-2 py-1.5">
           <button
             className="flex items-center gap-1 rounded px-1.5 py-1 text-caption font-caption text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 flex-none"
-            onClick={navigateBack}
+            onClick={onNavigateBack}
           >
             <FeatherChevronLeft className="text-[14px]" />
             Back
           </button>
           <span className="text-caption font-caption text-neutral-300 flex-none">/</span>
-          <Breadcrumb stack={folderStack} onNavigateTo={navigateTo} />
+          <Breadcrumb stack={folderStack} onNavigateTo={onNavigateTo} />
         </div>
       )}
 
@@ -114,7 +91,7 @@ export default function App() {
             <div
               key={item.id}
               className="flex w-full items-center gap-3 px-4 py-2.5 hover:bg-neutral-50 cursor-pointer"
-              onClick={() => chromeApi.tabs.create({ url: item.url! })}
+              onClick={() => onOpenBookmark(item.url!)}
             >
               <img
                 className="h-8 w-8 flex-none rounded-sm border border-solid border-neutral-200 object-cover"
@@ -136,7 +113,7 @@ export default function App() {
             <div
               key={item.id}
               className="flex w-full items-center gap-3 px-4 py-2.5 hover:bg-neutral-50 cursor-pointer"
-              onClick={() => handleNavigateInto(item)}
+              onClick={() => onNavigateInto(item)}
             >
               <div className="flex h-8 w-8 flex-none items-center justify-center rounded-sm border border-solid border-neutral-200 bg-neutral-50">
                 <FeatherFolder className="text-body font-body text-neutral-500" />
