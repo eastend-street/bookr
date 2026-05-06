@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import App from "@/App";
+import { Home } from "@/components/Home";
 import { useBookmarks } from "@/hooks/useBookmarks";
 import { chromeApi } from "@/lib/chromeApi";
 
-export default function AppContainer() {
+export function HomeContainer() {
   const [searchQuery, setSearchQuery] = useState("");
   const {
     displayedItems,
@@ -22,7 +22,7 @@ export default function AppContainer() {
   };
 
   return (
-    <App
+    <Home
       searchQuery={searchQuery}
       onSearchChange={setSearchQuery}
       displayedItems={displayedItems}
