@@ -2,6 +2,9 @@
 
 A bookmark manager Chrome extension built with React, TypeScript, and Subframe.
 
+<img width="456" height="607" alt="image" src="https://github.com/user-attachments/assets/770d4b70-229b-43ab-a2f4-00882ec24733" />
+
+
 ## Installing the Chrome Extension
 
 ### First-time Setup
