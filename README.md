@@ -12,7 +12,7 @@ A bookmark manager Chrome extension built with React, TypeScript, and Subframe.
 1. **Clone the repository**
 
    ```bash
-   git clone <this repository's URL>
+   git clone git@github.com:eastend-street/bookr.git
    cd bookr
    ```
 
