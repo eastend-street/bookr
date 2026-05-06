@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Bookr",
+  "version": "1.0.0",
+  "description": "A beautiful bookmark manager",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Bookr"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+B",
+        "mac": "Alt+Shift+B"
+      },
+      "description": "Open Bookr"
+    }
+  },
+  "permissions": [
+    "bookmarks",
+    "tabs"
+  ]
+}
