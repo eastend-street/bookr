@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Home } from "@/components/Home/Home";
+import { Bookmarks } from "@/components/Bookmarks/Bookmarks";
 import { useBookmarks } from "@/hooks/useBookmarks";
 import { chromeApi } from "@/lib/chromeApi";
 
-export function HomeContainer() {
+export function BookmarksContainer() {
   const [searchQuery, setSearchQuery] = useState("");
   const {
     displayedItems,
@@ -22,7 +22,7 @@ export function HomeContainer() {
   };
 
   return (
-    <Home
+    <Bookmarks
       searchQuery={searchQuery}
       onSearchChange={setSearchQuery}
       displayedItems={displayedItems}

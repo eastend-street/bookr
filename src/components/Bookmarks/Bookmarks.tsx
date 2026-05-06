@@ -1,11 +1,11 @@
 import React from "react";
 import { FeatherChevronLeft } from "@subframe/core";
-import { SearchHeader } from "@/components/Home/components/SearchHeader";
-import { BookmarkList } from "@/components/Home/components/BookmarkList";
-import { Breadcrumb } from "@/components/Home/components/Breadcrumb";
+import { SearchHeader } from "@/components/Bookmarks/components/SearchHeader";
+import { BookmarkList } from "@/components/Bookmarks/components/BookmarkList";
+import { Breadcrumb } from "@/components/Bookmarks/components/Breadcrumb";
 import type { BookmarkItem } from "@/hooks/useBookmarks";
 
-export interface HomeProps {
+export interface BookmarksProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   displayedItems: BookmarkItem[];
@@ -18,7 +18,7 @@ export interface HomeProps {
   onAddCurrentPage: () => void;
 }
 
-export function Home({
+export function Bookmarks({
   searchQuery,
   onSearchChange,
   displayedItems,
@@ -29,7 +29,7 @@ export function Home({
   onNavigateInto,
   onOpenBookmark,
   onAddCurrentPage,
-}: HomeProps) {
+}: BookmarksProps) {
   return (
     <div className="flex h-[560px] w-[384px] flex-col items-start border-r border-solid border-neutral-200 bg-default-background relative">
       <SearchHeader
