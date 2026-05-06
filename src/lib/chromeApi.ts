@@ -4,16 +4,30 @@ type BookmarkNode = chrome.bookmarks.BookmarkTreeNode;
 
 const mockTree: BookmarkNode[] = [
   {
-    id: "1",
+    id: "0",
     title: "",
     children: [
       {
-        id: "2",
+        id: "1",
         title: "Bookmarks Bar",
         children: [
           { id: "10", title: "GitHub", url: "https://github.com" },
           { id: "11", title: "Figma", url: "https://figma.com" },
-          { id: "12", title: "React Docs", url: "https://react.dev" },
+          {
+            id: "20",
+            title: "Dev Tools",
+            children: [
+              { id: "21", title: "React Docs", url: "https://react.dev" },
+              { id: "22", title: "TypeScript", url: "https://typescriptlang.org" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "2",
+        title: "Other Bookmarks",
+        children: [
+          { id: "30", title: "Example", url: "https://example.com" },
         ],
       },
     ],
