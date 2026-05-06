@@ -5,7 +5,7 @@ import { BookmarkList } from "@/components/Bookmarks/components/BookmarkList";
 import { Breadcrumb } from "@/components/Bookmarks/components/Breadcrumb";
 import type { BookmarkItem } from "@/hooks/useBookmarks";
 
-export interface BookmarksProps {
+export type BookmarksProps = {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   displayedItems: BookmarkItem[];
@@ -16,7 +16,7 @@ export interface BookmarksProps {
   onNavigateInto: (folder: BookmarkItem) => void;
   onOpenBookmark: (url: string) => void;
   onAddCurrentPage: () => void;
-}
+};
 
 export function Bookmarks({
   searchQuery,

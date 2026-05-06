@@ -3,11 +3,11 @@ import { FeatherFolder } from "@subframe/core";
 import { getFaviconUrl, getDomain } from "@/lib/utils";
 import type { BookmarkItem } from "@/hooks/useBookmarks";
 
-interface BookmarkListProps {
+type BookmarkListProps = {
   items: BookmarkItem[];
   onOpenBookmark: (url: string) => void;
   onNavigateInto: (folder: BookmarkItem) => void;
-}
+};
 
 export function BookmarkList({
   items,

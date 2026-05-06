@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { chromeApi } from "@/lib/chromeApi";
 
-export interface BookmarkItem {
+export type BookmarkItem = {
   id: string;
   title: string;
   url?: string;
   children?: BookmarkItem[];
-}
+};
 
 function buildTree(nodes: chrome.bookmarks.BookmarkTreeNode[]): BookmarkItem[] {
   return nodes.map((node) => ({

@@ -8,17 +8,16 @@ import React from "react";
 import * as SubframeCore from "@subframe/core";
 import * as SubframeUtils from "@/lib/utils";
 
-interface InputProps
-  extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    "type" | "placeholder"
-  > {
+type InputProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "type" | "placeholder"
+> & {
   type?: "text" | "password" | "email" | "number" | "tel" | "url" | "search";
   placeholder?: React.ReactNode;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
-}
+};
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(function Input(
   { type = "text", placeholder, className, ...otherProps }: InputProps,
@@ -52,8 +51,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(function Input(
   );
 });
 
-interface TextFieldRootProps
-  extends React.LabelHTMLAttributes<HTMLLabelElement> {
+type TextFieldRootProps = React.LabelHTMLAttributes<HTMLLabelElement> & {
   disabled?: boolean;
   error?: boolean;
   variant?: "outline" | "filled";
@@ -63,7 +61,7 @@ interface TextFieldRootProps
   iconRight?: React.ReactNode;
   children?: React.ReactNode;
   className?: string;
-}
+};
 
 const TextFieldRoot = React.forwardRef<HTMLLabelElement, TextFieldRootProps>(
   function TextFieldRoot(

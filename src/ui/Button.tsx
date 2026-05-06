@@ -8,8 +8,7 @@ import React from "react";
 import * as SubframeCore from "@subframe/core";
 import * as SubframeUtils from "@/lib/utils";
 
-interface ButtonRootProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonRootProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   disabled?: boolean;
   variant?:
     | "brand-primary"
@@ -29,7 +28,7 @@ interface ButtonRootProps
   loading?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
-}
+};
 
 const ButtonRoot = React.forwardRef<HTMLButtonElement, ButtonRootProps>(
   function ButtonRoot(

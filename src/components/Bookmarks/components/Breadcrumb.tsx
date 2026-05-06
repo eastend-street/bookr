@@ -1,10 +1,10 @@
 import React from "react";
 import type { BookmarkItem } from "@/hooks/useBookmarks";
 
-interface BreadcrumbProps {
+type BreadcrumbProps = {
   stack: BookmarkItem[];
   onNavigateTo: (index: number) => void;
-}
+};
 
 export function Breadcrumb({ stack, onNavigateTo }: BreadcrumbProps) {
   const segments =

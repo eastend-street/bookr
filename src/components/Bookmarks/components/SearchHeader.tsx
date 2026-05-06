@@ -7,11 +7,11 @@ import {
   FeatherSearch,
 } from "@subframe/core";
 
-interface SearchHeaderProps {
+type SearchHeaderProps = {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   onAddCurrentPage: () => void;
-}
+};
 
 export function SearchHeader({
   searchQuery,
