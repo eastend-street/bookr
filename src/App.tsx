@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/Button";
 import { TextField } from "@/components/TextField";
 import {
@@ -6,90 +6,13 @@ import {
   FeatherBookmarkPlus,
   FeatherSearch,
 } from "@subframe/core";
+import { useBookmarks } from "@/hooks/useBookmarks";
+import { getFaviconUrl, getDomain } from "@/lib/utils";
 import { chromeApi } from "@/lib/chromeApi";
 
-interface Bookmark {
-  id: string;
-  title: string;
-  url: string;
-}
-
-function flattenBookmarks(
-  nodes: chrome.bookmarks.BookmarkTreeNode[]
-): Bookmark[] {
-  const result: Bookmark[] = [];
-  for (const node of nodes) {
-    if (node.url) {
-      result.push({ id: node.id, title: node.title, url: node.url });
-    }
-    if (node.children) {
-      result.push(...flattenBookmarks(node.children));
-    }
-  }
-  return result;
-}
-
-function getFaviconUrl(url: string): string {
-  try {
-    const domain = new URL(url).hostname;
-    return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
-  } catch {
-    return "";
-  }
-}
-
-function getDomain(url: string): string {
-  try {
-    return new URL(url).hostname;
-  } catch {
-    return url;
-  }
-}
-
 export default function App() {
-  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentTab, setCurrentTab] = useState<{
-    title: string;
-    url: string;
-  } | null>(null);
-
-  useEffect(() => {
-    chromeApi.bookmarks.getTree((tree) => {
-      setBookmarks(flattenBookmarks(tree));
-    });
-
-    chromeApi.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0]) {
-        setCurrentTab({ title: tabs[0].title ?? "", url: tabs[0].url ?? "" });
-      }
-    });
-  }, []);
-
-  const filteredBookmarks = searchQuery
-    ? bookmarks.filter(
-        (b) =>
-          b.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          b.url.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : bookmarks;
-
-  const handleAddCurrentPage = () => {
-    if (!currentTab?.url) return;
-    chromeApi.bookmarks.create(
-      { title: currentTab.title, url: currentTab.url },
-      (newBookmark) => {
-        setBookmarks((prev) => [
-          {
-            id: newBookmark.id,
-            title: newBookmark.title,
-            url: newBookmark.url ?? "",
-          },
-          ...prev,
-        ]);
-      }
-    );
-  };
+  const { filteredBookmarks, addCurrentPage } = useBookmarks(searchQuery);
 
   return (
     <div className="flex h-[560px] w-[384px] flex-col items-start border-r border-solid border-neutral-200 bg-default-background relative">
@@ -119,7 +42,7 @@ export default function App() {
         <Button
           className="h-9 w-full flex-none bg-neutral-900 hover:bg-neutral-800"
           icon={<FeatherBookmarkPlus />}
-          onClick={handleAddCurrentPage}
+          onClick={addCurrentPage}
         >
           Add current page
         </Button>
