@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button } from "@/components/Button";
-import { TextField } from "@/components/TextField";
+import { Button } from "@/ui/Button";
+import { TextField } from "@/ui/TextField";
 import {
   FeatherBookmark,
   FeatherBookmarkPlus,
