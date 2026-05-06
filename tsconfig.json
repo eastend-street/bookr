@@ -17,10 +17,13 @@
     /* Linting */
     "strict": true,
     "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
 
     /* Import aliases */
-    "baseUrl": "./"
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "types": ["chrome"]
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src", "vite.config.ts"]
 }
