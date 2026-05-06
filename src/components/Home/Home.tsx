@@ -1,8 +1,8 @@
 import React from "react";
 import { FeatherChevronLeft } from "@subframe/core";
-import { SearchHeader } from "@/components/SearchHeader";
-import { BookmarkList } from "@/components/BookmarkList";
-import { Breadcrumb } from "@/components/Breadcrumb";
+import { SearchHeader } from "@/components/Home/components/SearchHeader";
+import { BookmarkList } from "@/components/Home/components/BookmarkList";
+import { Breadcrumb } from "@/components/Home/components/Breadcrumb";
 import type { BookmarkItem } from "@/hooks/useBookmarks";
 
 export interface HomeProps {
