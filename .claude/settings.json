@@ -1,0 +1,23 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r '.tool_input.file_path // empty'); if [[ \"$f\" == *.ts || \"$f\" == *.tsx ]]; then npx eslint --report-unused-disable-directives --max-warnings 0 \"$f\"; fi",
+            "timeout": 30,
+            "statusMessage": "Running ESLint..."
+          },
+          {
+            "type": "command",
+            "command": "f=$(jq -r '.tool_input.file_path // empty'); if [[ \"$f\" == *.ts || \"$f\" == *.tsx ]]; then npm run build; fi",
+            "timeout": 120,
+            "statusMessage": "Running build..."
+          }
+        ]
+      }
+    ]
+  }
+}
