@@ -31,7 +31,7 @@ export function Bookmarks({
   onAddCurrentPage,
 }: BookmarksProps) {
   return (
-    <div className="flex h-[560px] w-[384px] flex-col items-start border-r border-solid border-neutral-200 bg-default-background relative">
+    <div className="flex h-screen w-full flex-col items-start bg-default-background relative">
       <SearchHeader
         searchQuery={searchQuery}
         onSearchChange={onSearchChange}
