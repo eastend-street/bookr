@@ -27,15 +27,16 @@
   "commands": {
     "_execute_action": {
       "suggested_key": {
-        "default": "Alt+Shift+B",
-        "mac": "Alt+Shift+B"
+        "default": "Alt+B",
+        "mac": "Alt+B"
       },
-      "description": "Open Bookr"
+      "description": "Toggle Bookr"
     }
   },
   "permissions": [
     "bookmarks",
     "tabs",
-    "sidePanel"
+    "sidePanel",
+    "storage"
   ]
 }
