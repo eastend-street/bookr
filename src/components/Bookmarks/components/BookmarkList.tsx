@@ -24,14 +24,29 @@ export function BookmarkList({
     );
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent, item: BookmarkItem) => {
+    if (e.key === " " || e.key === "Enter") {
+      e.preventDefault();
+      if (item.url) {
+        onOpenBookmark(item.url);
+      } else {
+        onNavigateInto(item);
+      }
+    }
+  };
+
   return (
-    <>
+    <div role="list" className="w-full">
       {items.map((item) =>
         item.url ? (
           <div
             key={item.id}
-            className="flex w-full items-center gap-3 px-4 py-2.5 hover:bg-neutral-50 cursor-pointer"
+            role="button"
+            tabIndex={0}
+            aria-label={item.title || getDomain(item.url)}
+            className="flex w-full items-center gap-3 px-4 py-2.5 hover:bg-neutral-50 focus:bg-neutral-50 focus:outline-none cursor-pointer"
             onClick={() => onOpenBookmark(item.url!)}
+            onKeyDown={(e) => handleKeyDown(e, item)}
           >
             <img
               className="h-8 w-8 flex-none rounded-sm border border-solid border-neutral-200 object-cover"
@@ -52,8 +67,12 @@ export function BookmarkList({
         ) : (
           <div
             key={item.id}
-            className="flex w-full items-center gap-3 px-4 py-2.5 hover:bg-neutral-50 cursor-pointer"
+            role="button"
+            tabIndex={0}
+            aria-label={`${item.title} フォルダー`}
+            className="flex w-full items-center gap-3 px-4 py-2.5 hover:bg-neutral-50 focus:bg-neutral-50 focus:outline-none cursor-pointer"
             onClick={() => onNavigateInto(item)}
+            onKeyDown={(e) => handleKeyDown(e, item)}
           >
             <div className="flex h-8 w-8 flex-none items-center justify-center rounded-sm border border-solid border-neutral-200 bg-neutral-50">
               <FeatherFolder className="text-body font-body text-neutral-500" />
@@ -69,6 +88,6 @@ export function BookmarkList({
           </div>
         )
       )}
-    </>
+    </div>
   );
 }

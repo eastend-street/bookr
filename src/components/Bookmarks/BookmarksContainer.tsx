@@ -11,10 +11,16 @@ export function BookmarksContainer() {
     navigateInto,
     navigateBack,
     navigateTo,
-    addCurrentPage,
   } = useBookmarks(searchQuery);
 
   const isInFolder = folderStack.length > 0 && !searchQuery;
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Escape" && folderStack.length > 0) {
+      e.preventDefault();
+      navigateBack();
+    }
+  };
 
   const handleNavigateInto = (folder: Parameters<typeof navigateInto>[0]) => {
     setSearchQuery("");
@@ -32,7 +38,7 @@ export function BookmarksContainer() {
       onNavigateTo={navigateTo}
       onNavigateInto={handleNavigateInto}
       onOpenBookmark={(url) => chromeApi.tabs.create({ url })}
-      onAddCurrentPage={addCurrentPage}
+      onKeyDown={handleKeyDown}
     />
   );
 }

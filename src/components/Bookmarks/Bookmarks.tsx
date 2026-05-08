@@ -15,7 +15,7 @@ export type BookmarksProps = {
   onNavigateTo: (index: number) => void;
   onNavigateInto: (folder: BookmarkItem) => void;
   onOpenBookmark: (url: string) => void;
-  onAddCurrentPage: () => void;
+  onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
 };
 
 export function Bookmarks({
@@ -28,14 +28,13 @@ export function Bookmarks({
   onNavigateTo,
   onNavigateInto,
   onOpenBookmark,
-  onAddCurrentPage,
+  onKeyDown,
 }: BookmarksProps) {
   return (
-    <div className="flex h-screen w-full flex-col items-start bg-default-background relative">
+    <div className="flex h-screen w-full flex-col items-start bg-default-background relative" onKeyDown={onKeyDown}>
       <SearchHeader
         searchQuery={searchQuery}
         onSearchChange={onSearchChange}
-        onAddCurrentPage={onAddCurrentPage}
       />
 
       {isInFolder && (

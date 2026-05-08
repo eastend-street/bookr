@@ -33,12 +33,8 @@ function searchTree(items: BookmarkItem[], query: string): BookmarkItem[] {
 export function useBookmarks(searchQuery: string) {
   const [rootItems, setRootItems] = useState<BookmarkItem[]>([]);
   const [folderStack, setFolderStack] = useState<BookmarkItem[]>([]);
-  const [currentTab, setCurrentTab] = useState<{
-    title: string;
-    url: string;
-  } | null>(null);
 
-  const fetchTree = () => {
+  useEffect(() => {
     chromeApi.bookmarks.getTree((tree) => {
       // Chrome's root has built-in folders (Bookmarks Bar, Other Bookmarks,
       // Mobile Bookmarks) that shouldn't be shown as user folders — skip them
@@ -46,15 +42,6 @@ export function useBookmarks(searchQuery: string) {
       const defaultFolders = tree[0]?.children ?? [];
       const topLevel = defaultFolders.flatMap((f) => f.children ?? []);
       setRootItems(buildTree(topLevel));
-    });
-  };
-
-  useEffect(() => {
-    fetchTree();
-    chromeApi.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0]) {
-        setCurrentTab({ title: tabs[0].title ?? "", url: tabs[0].url ?? "" });
-      }
     });
   }, []);
 
@@ -76,21 +63,11 @@ export function useBookmarks(searchQuery: string) {
     setFolderStack((prev) => prev.slice(0, index + 1));
   };
 
-  const addCurrentPage = () => {
-    if (!currentTab?.url) return;
-    chromeApi.bookmarks.create(
-      { title: currentTab.title, url: currentTab.url },
-      () => fetchTree()
-    );
-  };
-
   return {
     displayedItems,
     folderStack,
     navigateInto,
     navigateBack,
     navigateTo,
-    currentTab,
-    addCurrentPage,
   };
 }
