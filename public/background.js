@@ -1,10 +1,15 @@
-chrome.action.onClicked.addListener(async (tab) => {
-  const { isOpen } = await chrome.storage.session.get({ isOpen: false });
+let isOpen = false;
+
+chrome.storage.session.get({ isOpen: false }).then(({ isOpen: stored }) => {
+  isOpen = stored;
+});
+
+chrome.action.onClicked.addListener((tab) => {
   if (isOpen) {
-    await chrome.sidePanel.close({ windowId: tab.windowId });
-    await chrome.storage.session.set({ isOpen: false });
+    chrome.sidePanel.close({ windowId: tab.windowId });
   } else {
-    await chrome.sidePanel.open({ windowId: tab.windowId });
-    await chrome.storage.session.set({ isOpen: true });
+    chrome.sidePanel.open({ windowId: tab.windowId });
   }
+  isOpen = !isOpen;
+  chrome.storage.session.set({ isOpen });
 });
