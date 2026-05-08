@@ -11,18 +11,13 @@
   },
   "action": {
     "default_title": "Bookr",
+    "default_popup": "index.html",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
     }
-  },
-  "side_panel": {
-    "default_path": "index.html"
-  },
-  "background": {
-    "service_worker": "background.js"
   },
   "commands": {
     "_execute_action": {
@@ -35,8 +30,6 @@
   },
   "permissions": [
     "bookmarks",
-    "tabs",
-    "sidePanel",
-    "storage"
+    "tabs"
   ]
 }

@@ -40,6 +40,10 @@ App
 
 **Path alias:** `@/*` resolves to `src/*` (configured in `tsconfig.json` and `vite.config.ts`).
 
+## Communication
+
+- Always respond in Japanese.
+
 ## Key Conventions
 
 - All components use `type` (not `interface`) for props — enforced across the codebase.
