@@ -1,6 +1,6 @@
 # Bookr
 
-A bookmark manager Chrome extension built with React, TypeScript, and Subframe.
+**Bookr** is a lightning-fast bookmark search engine for Chrome. Find and open any bookmark instantly with a few keystrokes.
 
 <img width="825" height="653" alt="image" src="https://github.com/user-attachments/assets/b5205b53-a13c-46d9-8c1d-0be3f671eec8" />
 
